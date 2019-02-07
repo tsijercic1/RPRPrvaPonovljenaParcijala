@@ -1,16 +1,17 @@
 package ba.unsa.etf.rpr;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 
 public class Preduzece {
     private int osnovica;
-
+    private ArrayList<RadnoMjesto> radnaMjesta;
 
     public Preduzece(int osnovica) {
+        String mes = ("Neispravna osnovica "+osnovica);
+        if(osnovica<1)throw new NeispravnaOsnovica( mes);
         this.osnovica = osnovica;
+        this.radnaMjesta = new ArrayList<>();
     }
 
 
@@ -25,20 +26,50 @@ public class Preduzece {
     }
 
     public void novoRadnoMjesto(RadnoMjesto radnoMjesto) {
-
-
+        radnaMjesta.add(radnoMjesto);
     }
 
     public Map<RadnoMjesto, Integer> sistematizacija() {
-        return null;
+        Map<RadnoMjesto,Integer> result = new HashMap<>();
+        for(RadnoMjesto element:radnaMjesta){
+            if (!result.containsKey(element)) {
+                result.put(element,0);
+            }
+        }
+        for(Map.Entry<RadnoMjesto,Integer> element : result.entrySet()){
+            for(RadnoMjesto radnoMjesto : radnaMjesta){
+                if(element.getKey().equals(radnoMjesto)){
+                    element.setValue(element.getValue()+1);
+                }
+            }
+        }
+        return result;
     }
 
     public void zaposli(Radnik radnik, String pozicija) {
-
+        boolean zaposlen = false;
+        for(RadnoMjesto element : radnaMjesta){
+            if(element.getNaziv().equals(pozicija)){
+                if(element.getRadnik() == null){
+                    element.setRadnik(radnik);
+                    zaposlen = true;
+                    break;
+                }
+            }
+        }
+        if(!zaposlen){
+            throw new IllegalStateException("Nijedno radno mjesto tog tipa nije slobodno");
+        }
     }
 
     public Set<Radnik> radnici() {
-        return null;
+        Set<Radnik> result = new TreeSet<>();
+        for(RadnoMjesto element : radnaMjesta){
+            if(element.getRadnik()!=null) {
+                result.add(element.getRadnik());
+            }
+        }
+        return result;
     }
 
     public double iznosPlate() {

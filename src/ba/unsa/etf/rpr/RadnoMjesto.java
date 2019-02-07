@@ -6,6 +6,9 @@ public class RadnoMjesto {
     private Radnik radnik;
 
     public RadnoMjesto() {
+        naziv = "";
+        koeficijent=0;
+        radnik=null;
     }
 
     public RadnoMjesto(String naziv, double koeficijent, Radnik radnik) {
@@ -36,5 +39,26 @@ public class RadnoMjesto {
 
     public void setRadnik(Radnik radnik) {
         this.radnik = radnik;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof RadnoMjesto)) return false;
+
+        RadnoMjesto that = (RadnoMjesto) o;
+
+        if (Double.compare(that.getKoeficijent(), getKoeficijent()) != 0) return false;
+        return getNaziv() != null ? getNaziv().equals(that.getNaziv()) : that.getNaziv() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = getNaziv() != null ? getNaziv().hashCode() : 0;
+        temp = Double.doubleToLongBits(getKoeficijent());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
     }
 }

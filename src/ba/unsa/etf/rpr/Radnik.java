@@ -1,6 +1,6 @@
 package ba.unsa.etf.rpr;
 
-public class Radnik {
+public class Radnik implements Comparable {
     private String imePrezime;
     private String jmbg;
     private double[] plate;
@@ -49,5 +49,12 @@ public class Radnik {
             return result;
         }
         return 0;
+    }
+
+
+    @Override
+    public int compareTo(Object o) {
+        Radnik r = (Radnik)o;
+        return Double.compare(this.prosjecnaPlata(), r.prosjecnaPlata());
     }
 }
