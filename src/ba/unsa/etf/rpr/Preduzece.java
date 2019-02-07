@@ -47,19 +47,17 @@ public class Preduzece {
     }
 
     public void zaposli(Radnik radnik, String pozicija) {
-        boolean zaposlen = false;
         for(RadnoMjesto element : radnaMjesta){
             if(element.getNaziv().equals(pozicija)){
                 if(element.getRadnik() == null){
                     element.setRadnik(radnik);
-                    zaposlen = true;
-                    break;
+                    return;
                 }
             }
         }
-        if(!zaposlen){
+
             throw new IllegalStateException("Nijedno radno mjesto tog tipa nije slobodno");
-        }
+
     }
 
     public Set<Radnik> radnici() {
@@ -91,10 +89,18 @@ public class Preduzece {
     }
 
     public List<Radnik> filterRadnici(Function<Radnik,Boolean> function) {
-        return null;
+        List<Radnik> radnici = new ArrayList<>();
+        for(RadnoMjesto element:radnaMjesta){
+            if (element.getRadnik() != null) {
+                if (function.apply(element.getRadnik())) {
+                    radnici.add(element.getRadnik());
+                }
+            }
+        }
+        return radnici;
     }
 
     public List<Radnik> vecaProsjecnaPlata(double referentna) {
-        return null;
+        return filterRadnici(m->{return m.prosjecnaPlata()>referentna;});
     }
 }
