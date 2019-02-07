@@ -73,11 +73,21 @@ public class Preduzece {
     }
 
     public double iznosPlate() {
-        return 0;
+        double result=0;
+        for(RadnoMjesto element:radnaMjesta){
+            if (element.getRadnik() != null) {
+                result+=osnovica*element.getKoeficijent();
+            }
+        }
+        return result;
     }
 
     public void obracunajPlatu() {
-
+        for(RadnoMjesto element:radnaMjesta){
+            if (element.getRadnik() != null) {
+                element.getRadnik().dodajPlatu(osnovica*element.getKoeficijent());
+            }
+        }
     }
 
     public List<Radnik> filterRadnici(Function<Radnik,Boolean> function) {
