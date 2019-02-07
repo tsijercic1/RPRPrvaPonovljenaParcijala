@@ -14,6 +14,9 @@ public class Preduzece {
         this.radnaMjesta = new ArrayList<>();
     }
 
+    public ArrayList<RadnoMjesto> getRadnaMjesta() {
+        return radnaMjesta;
+    }
 
     public int dajOsnovicu() {
         return osnovica;
@@ -55,9 +58,7 @@ public class Preduzece {
                 }
             }
         }
-
-            throw new IllegalStateException("Nijedno radno mjesto tog tipa nije slobodno");
-
+        throw new IllegalStateException("Nijedno radno mjesto tog tipa nije slobodno");
     }
 
     public Set<Radnik> radnici() {

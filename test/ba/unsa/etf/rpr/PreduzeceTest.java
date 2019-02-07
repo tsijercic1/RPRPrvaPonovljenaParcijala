@@ -256,7 +256,6 @@ class PreduzeceTest {
             pr.novoRadnoMjesto(rm);
             rm = new RadnoMjesto("Radnik", 8, null);
             pr.novoRadnoMjesto(rm);
-
             Radnik selma = new Radnik("Selma Selmić", "87878");
             Radnik hana = new Radnik("Hana Hanić", "87878");
             Radnik maja = new Radnik("Maja Majić", "87878");

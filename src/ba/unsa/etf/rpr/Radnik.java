@@ -55,6 +55,15 @@ public class Radnik implements Comparable {
     @Override
     public int compareTo(Object o) {
         Radnik r = (Radnik)o;
-        return Double.compare(r.prosjecnaPlata(), this.prosjecnaPlata());
+        if(Double.compare(r.prosjecnaPlata(), this.prosjecnaPlata()) != 0)return Double.compare(r.prosjecnaPlata(), this.prosjecnaPlata());
+        return this.imePrezime.compareTo(r.imePrezime);
+    }
+
+    @Override
+    public String toString() {
+        return "Radnik{" +
+                "imePrezime='" + imePrezime + '\'' +
+                ", jmbg='" + jmbg + '\'' +
+                '}';
     }
 }
